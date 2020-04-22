@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/springfirst?serverTimezone=UTC&useLegacyDatetimeCode=false
+    password: root
+    username: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+  profiles:
+    active:
+    - dev
+
+keycloak:
+  auth-server-url: http://localhost:9000/auth
+  realm: bingo
+  resource: bingo-app
+  public-client: true
+  security-constraints:
+    - auth-roles:
+      - admin
+      securityCollections:
+        - methods:
+          - post
+        - patterns:
+          - /users/*
+    - auth-roles:
+      - user
+      securityCollections:
+      - patterns:
+        - /users/*
+        - /campaigns/*
